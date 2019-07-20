@@ -1,0 +1,20 @@
+version: 2.0
+
+jobs:
+  build:
+    docker:
+      - image: theodus/idris:4e70401
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            apt-get update && apt-get install -y curl wget \
+              chicken-bin racket libx11-dev uuid-dev
+            # chez
+            wget https://github.com/cisco/ChezScheme/archive/v9.5.2.tar.gz
+            tar xvzf v9.5.2.tar.gz && cd ChezScheme-9.5.2
+            ./configure --threads && make -j install
+      - run:
+          name: test
+          command: make all
