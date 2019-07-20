@@ -3,7 +3,7 @@ Idris 2
 
 This is a pre-alpha implementation of Idris 2, the successor to Idris.
 
-*** Please note: This currently requires currently requires the (not yet
+*** Please note: This currently requires the (not yet
 released) latest Idris master. See https://github.com/idris-lang/Idris-dev/ ***
 
 Idris 2 is mostly backwards compatible with Idris 1, with some minor
@@ -85,7 +85,7 @@ Information about external dependencies are presented in [INSTALL.md](INSTALL.md
 Things still missing
 ====================
 
-+ Some high level syntax, notably idiom brackets 
++ Some high level syntax, notably idiom brackets
 + 'using' blocks
 + Cumulativity (so we currently have Type : Type! Bear that in mind when you
   think you've proved something :))
