@@ -10,8 +10,8 @@ cache:
  - $HOME/.cabal/bin
 
 before_install:
-  - travis_wait cabal install --dependencies-only idris-1.3.2
-  - travis_wait 20 cabal install -j1 idris-1.3.2
+  - cabal install --dependencies-only --with-ld=ld.gold idris-1.3.2
+  - travis_wait 20 cabal install --with-ld=ld.gold  -j1 idris-1.3.2
   - apt-get update -y
   - apt-get install -y curl wget chicken-bin racket libx11-dev uuid-dev clang
   - wget https://github.com/cisco/ChezScheme/archive/v9.5.2.tar.gz
