@@ -10,7 +10,7 @@ cache:
  - $HOME/.cabal/bin
 
 before_install:
-  - cabal install idris-1.3.2
+  - travis_wait 20 cabal install idris-1.3.2
   - apt-get update -y
   - apt-get install -y curl wget chicken-bin racket libx11-dev uuid-dev clang
   - wget https://github.com/cisco/ChezScheme/archive/v9.5.2.tar.gz
@@ -18,6 +18,7 @@ before_install:
   - ./configure --threads && make -j install
 
 install:
+  - export IDRIS_CC=clang
   - make idris2
   - make libs
 
