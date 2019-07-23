@@ -12,14 +12,16 @@ cache:
 
 before_install:
   - sudo apt-get update -y
-  - sudo apt-get install -y curl wget chicken-bin racket libx11-dev uuid-dev clang
+  - sudo apt-get install -y curl wget chicken-bin racket libx11-dev uuid-dev lld-6.0 clang
   - wget https://github.com/cisco/ChezScheme/archive/v9.5.2.tar.gz
   - tar xvzf v9.5.2.tar.gz && cd ChezScheme-9.5.2
   - ./configure --threads && sudo make -j install
+  - cd ..
 
 install:
-  - cabal install --dependencies-only idris-1.3.2
-  - travis_wait 20 cabal install idris-1.3.2
+  - cabal install --dependencies-only --with-ld=ld.lld idris-1.3.2
+  - travis_wait 20 cabal install --with-ld=ld.lld idris-1.3.2
+  - export PATH=$HOME/.cabal/bin:$PATH
   - export IDRIS_CC=clang
 
 script:
