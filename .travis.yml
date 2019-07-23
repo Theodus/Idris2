@@ -1,28 +1,38 @@
 dist: bionic
-sudo: required
+addons:
+  apt:
+    packages:
+      - clang
+      - lld-6.0
+      - chicken-bin
+      - racket
+      - libx11-dev
+      - uuid-dev
+      - libncurses5-dev
+
+services:
+  - docker
 
 language: haskell
 ghc: 8.2
 
-cache:
- directories:
- - $HOME/.cabal/packages
- - $HOME/.cabal/store
- - $HOME/.cabal/bin
+env:
+  - IDRIS_CC=clang
 
 before_install:
-  - sudo apt-get update -y
-  - sudo apt-get install -y curl wget chicken-bin racket libx11-dev uuid-dev lld-6.0 clang
-  - wget https://github.com/cisco/ChezScheme/archive/v9.5.2.tar.gz
-  - tar xvzf v9.5.2.tar.gz && cd ChezScheme-9.5.2
-  - ./configure --threads && sudo make -j install
-  - cd ..
+  # - wget https://github.com/cisco/ChezScheme/archive/v9.5.2.tar.gz
+  # - tar xvzf v9.5.2.tar.gz && cd ChezScheme-9.5.2
+  # - ./configure --threads && sudo make -j install
+  # - cd ..
 
 install:
-  - cabal install --dependencies-only --with-ld=ld.lld idris-1.3.2
-  - travis_wait 20 cabal install --with-ld=ld.lld idris-1.3.2
+  # - docker run --rm --entrypoint tar "theodus/idris:1.3.2" cf - /root/.cabal >cabal_stuff.tar
+  # - tar xvf cabal_stuff.tar
+  # - cp -r root/.cabal/* $HOME/.cabal
+  # - ls $HOME/.cabal/share/x86_64-linux-ghc-8.2.2/idris-1.3.2/libs
+
   - export PATH=$HOME/.cabal/bin:$PATH
-  - export IDRIS_CC=clang
+  - cabal update && cabal install -j --with-ld=ld.lld idris-1.3.2
 
 script:
   - travis_wait 20 make idris2
