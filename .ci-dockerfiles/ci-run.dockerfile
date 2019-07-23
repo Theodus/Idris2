@@ -1,4 +1,4 @@
-from theodus/idris:1.3.2
+from theodus/idris2-ci-base:latest
 
 copy . /Idris2-dev
 workdir /Idris2-dev
